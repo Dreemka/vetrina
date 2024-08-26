@@ -203,9 +203,62 @@ if ( ! function_exists( 'twentytwentyfour_pattern_categories' ) ) :
 	}
 endif;
 
-add_action( 'init', 'twentytwentyfour_pattern_categories' );
-
+//Кастомное Меню
 function wpb_custom_new_menu() {
-  register_nav_menu('my-custom-menu',__( 'Left menu' ));
+  register_nav_menus(
+    array(
+      'left-menu' => __( 'Left menu' ),
+      'extra-menu' => __( 'Extra Menu' )
+    )
+  );
 }
 add_action( 'init', 'wpb_custom_new_menu' );
+
+
+function add_material_design() {
+	?>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+	<script type="importmap">
+			{
+					"imports": {
+							"@material/web/": "https://esm.run/@material/web/"
+					}
+			}
+	</script>
+	<script type="module">
+			import '@material/web/all.js';
+			import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
+
+			document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+	</script>
+	<?php
+}
+add_action('wp_head', 'add_material_design');
+
+
+
+// Подключаем стиль для левого блока меню
+
+function my_theme_enqueue_styles() {
+	// Подключаем файл стилей для блока left-menu
+	wp_enqueue_style(
+			'left-menu-style', // Уникальный идентификатор для стиля
+			get_theme_file_uri( 'assets/css/left-menu.css' ), // URL к файлу стилей
+			array(), // Зависимости (если есть)
+			wp_get_theme()->get( 'Version' ) // Версия темы
+	);
+}
+add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
+
+//Кастомные переменные
+function my_custom_styles() {
+	?>
+	<style>
+			:root {
+					--main-border-radius: <?php echo get_option('my_main_border_radius', '0 20px 20px 0'); ?>;
+					--secondary-color: <?php echo get_option('my_secondary_color', '#2ecc71'); ?>;
+			}
+	</style>
+	<?php
+}
+add_action('wp_head', 'my_custom_styles');
