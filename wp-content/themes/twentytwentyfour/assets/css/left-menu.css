@@ -1,8 +1,33 @@
+:root {
+  --md-elevated-button-container-shape: 0px;
+  --md-sys-color-surface-container-low: #fff;
+  --md-sys-color-primary: #fff;
+  --md-sys-shape-corner-small: 4px;
+}
+
 .vetrina-left-side-bar {
   background-color: var(--wp--preset--color--contrast-2);
   border-radius: var(--main-border-radius);
   width: 100%;
   height: 100%;
+  .vetrina-left-menu {
+    padding: 0 20px;
+    ul {
+      padding: 0px;
+      li {
+        list-style-type: none;
+        text-align: left;
+        color:#fff;
+      }
+    }
+    .vetrina-menu-button {
+      justify-content: flex-start;
+      display: grid;
+    }
+  }
+  .vetrina-menu-name {
+    padding: 0px 12px;
+  }
 }
 .vetrina-left-side-bar-wrapper {
   width: 360px;
@@ -17,4 +42,17 @@
 }
 .vetrina-main-content-block {
   overflow: scroll;
+}
+body {
+  height: 100vh;
+}
+html {
+  margin-top: 0px !important;
+}
+.wp-site-blocks {
+  height: 100%;
+}
+
+.w-100 {
+  width: 100%;
 }

@@ -203,12 +203,13 @@ if ( ! function_exists( 'twentytwentyfour_pattern_categories' ) ) :
 	}
 endif;
 
-//Кастомное Меню
+// Кастомное Меню
 function wpb_custom_new_menu() {
   register_nav_menus(
     array(
-      'left-menu' => __( 'Left menu' ),
-      'extra-menu' => __( 'Extra Menu' )
+      'left-menu-tools' => __( 'Tools' ),
+      'left-menu-library' => __( 'Library' ),
+      'left-menu-settings' => __( 'Settings' ),
     )
   );
 }
