@@ -1,8 +1,13 @@
 :root {
-  --md-elevated-button-container-shape: 0px;
   --md-sys-color-surface-container-low: #fff;
   --md-sys-color-primary: #fff;
   --md-sys-shape-corner-small: 4px;
+  --md-text-button-container-height: 3.25rem;
+  --wp-admin-border-width-focus: 0px;
+}
+
+a:where(:not(.wp-element-button)) {
+  text-decoration: none;
 }
 
 .vetrina-left-side-bar {
@@ -18,11 +23,28 @@
         list-style-type: none;
         text-align: left;
         color:#fff;
+        .vetrina-icon-menu {
+          height: 18px;
+        }
       }
+    }
+    .vetrina-block-menu-wrapper {
+      border-bottom: 1px solid #EDF6FF;
+      margin-bottom: 1.2rem;
+      .current-menu-item {
+        .vetrina-menu-button {
+          background-color: #fff;
+          --md-sys-color-primary: var(--wp--preset--color--contrast-2);
+        }
+      }
+    }
+    .vetrina-block-menu-wrapper:last-child {
+      border:none;
     }
     .vetrina-menu-button {
       justify-content: flex-start;
       display: grid;
+      outline-style: none;
     }
   }
   .vetrina-menu-name {
@@ -31,6 +53,7 @@
 }
 .vetrina-left-side-bar-wrapper {
   width: 360px;
+  min-width: 360px;
   position: relative;
   top: 0px;
   z-index: 1;
