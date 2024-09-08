@@ -263,3 +263,167 @@ function my_custom_styles() {
 	<?php
 }
 add_action('wp_head', 'my_custom_styles');
+
+
+function custom_user_page_selection() {
+	if (is_user_logged_in()) {
+			$current_user = wp_get_current_user();
+			$selected_pages = get_user_meta($current_user->ID, 'selected_pages', true);
+
+			$args = array(
+					'post_type' => 'metodix', // Название вашего кастомного типа записи
+					'posts_per_page' => -1, // Получить все записи
+			);
+
+			$pages = get_posts($args);
+			
+			$output = '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+			$output .= '<input type="hidden" name="action" value="save_user_page_selection">';
+			
+			foreach ($pages as $page) {
+					$checked = in_array($page->ID, (array)$selected_pages) ? 'checked' : '';
+					$plus_value = get_field('plus', $page->ID);
+					$output .= '<input type="checkbox" name="selected_pages[]" value="' . $page->ID . '" ' . $checked . '> ' . esc_html($page->post_title) . '<br>';
+					if (is_array($plus_value) && !empty($plus_value)) {
+						$output .= '<div class="acf-plus-value">';
+						foreach ($plus_value as $value) {
+								$output .= '<div>' . esc_html($value) . '</div>'; // Выводим каждое значение
+						}
+						$output .= '</div>';
+				}
+			}
+			$output .= '<input type="submit" name="save_selection" value="Сохранить выбор">';
+			$output .= '</form>';
+
+			return $output;
+	}
+	return ''; // Вернуть пустую строку, если пользователь не залогинен
+}
+add_shortcode('user_page_selection', 'custom_user_page_selection');
+
+
+function save_user_page_selection() {
+	// Проверяем, была ли отправлена форма
+	if (isset($_POST['save_selection'])) {
+			$current_user = wp_get_current_user();
+			
+			// Проверяем, что пользователь залогинен
+			if ($current_user->ID) {
+					$selected_pages = isset($_POST['selected_pages']) ? $_POST['selected_pages'] : [];
+					
+					// Сохраняем выбранные страницы в метаданные пользователя
+					update_user_meta($current_user->ID, 'selected_pages', $selected_pages);
+			}
+	}
+	
+	// Перенаправляем пользователя обратно на ту же страницу после сохранения
+	wp_redirect($_SERVER['HTTP_REFERER']);
+	exit;
+}
+add_action('admin_post_nopriv_save_user_page_selection', 'save_user_page_selection');
+add_action('admin_post_save_user_page_selection', 'save_user_page_selection');
+
+function display_user_selected_pages() {
+	if (is_user_logged_in()) {
+			$current_user = wp_get_current_user();
+			$selected_pages = get_user_meta($current_user->ID, 'selected_pages', true);
+			
+			$output = '';
+			if ($selected_pages) {
+					foreach ($selected_pages as $page_id) {
+							$output .= '<a href="' . get_permalink($page_id) . '">' . esc_html(get_the_title($page_id)) . '</a><br>';
+					}
+			}
+
+			return $output;
+	}
+	return ''; // Вернуть пустую строку, если пользователь не залогинен
+}
+add_shortcode('user_selected_pages', 'display_user_selected_pages');
+
+//Подключение выбора иконок для меню
+add_action( 'wp_nav_menu_item_custom_fields', 'true_menu_field', 10, 5 );
+
+function true_menu_field( $item_id, $item, $depth, $args, $id ) {
+    // Получаем URL иконки для данного элемента меню
+    $icon_url = get_post_meta( $item_id, '_menu_icon', true );
+
+    echo '<p class="description">';
+    echo '<label for="menu-item-icon-' . $item_id . '">Выберите SVG иконку:</label>';
+    echo '<input type="text" name="menu-item-icon[' . $item_id . ']" id="menu-item-icon-' . $item_id . '" value="' . esc_attr( $icon_url ) . '" style="width: 70%;" />';
+    echo '<button class="button select-icon-button" data-item-id="' . $item_id . '">Выбрать иконку</button>';
+    echo '</p>';
+}
+
+// Сохранение выбранной иконки
+add_action( 'wp_update_nav_menu_item', 'save_menu_item_icon', 10, 2 );
+
+function save_menu_item_icon( $menu_id, $menu_item_db_id ) {
+    if ( isset( $_POST['menu-item-icon'][$menu_item_db_id] ) ) {
+        $icon = esc_url_raw( $_POST['menu-item-icon'][$menu_item_db_id] );
+        update_post_meta( $menu_item_db_id, '_menu_icon', $icon );
+    } else {
+        delete_post_meta( $menu_item_db_id, '_menu_icon' );
+    }
+}
+
+// Функция для отображения иконок в меню
+add_filter( 'walker_nav_menu_start_el', 'add_icon_to_menu_item', 10, 4 );
+
+function add_icon_to_menu_item( $item_output, $item, $depth, $args ) {
+    $icon_url = get_post_meta( $item->ID, '_menu_icon', true );
+		$item_output = $args->before;
+		$item_output .= '<a href="' . $item->url .'">';
+		$item_output .= '<button class="vetrina-button vetrina-menu-button w-100">';
+		if ( $icon_url && strpos( $icon_url, 'http' ) === 0 ) {
+			$item_output .= '<img src="' . esc_url( $icon_url ) . '" class="vetrina-menu-icon">';
+		};
+		$item_output .= $args->link_before . $item->title . $args->link_after;
+		$item_output .= '</button>';
+		$item_output .= '</a>';
+		$item_output .= $args->after;
+    return $item_output;
+}
+
+// Подключаем скрипт для работы с медиабиблиотекой
+add_action('admin_footer', 'enqueue_media_uploader_script');
+
+function enqueue_media_uploader_script() {
+    ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $('.select-icon-button').on('click', function(e) {
+                e.preventDefault();
+                
+                var button = $(this);
+                var itemId = button.data('item-id');
+                var file_frame;
+
+                // Если медиа-рамка уже была создана, открыть её
+                if (file_frame) {
+                    file_frame.open();
+                    return;
+                }
+
+                // Создаем новую медиа-рамку
+                file_frame = wp.media({
+                    title: 'Выберите иконку',
+                    button: {
+                        text: 'Выбрать иконку'
+                    },
+                    multiple: false // Можно выбирать только одно изображение
+                });
+
+                // Когда изображение выбрано, обновляем поле
+                file_frame.on('select', function() {
+                    var attachment = file_frame.state().get('selection').first().toJSON();
+                    $('#menu-item-icon-' + itemId).val(attachment.url);
+                });
+
+                // Открываем медиа-рамку
+                file_frame.open();
+            });
+        });
+    </script>
+    <?php
+}

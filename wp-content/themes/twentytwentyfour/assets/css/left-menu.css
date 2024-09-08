@@ -15,10 +15,13 @@ a:where(:not(.wp-element-button)) {
   border-radius: var(--main-border-radius);
   width: 100%;
   height: 100%;
+  display: grid;
+  overflow: scroll;
   .vetrina-left-menu {
     padding: 0 20px;
     ul {
       padding: 0px;
+      margin-top: 0px;
       li {
         list-style-type: none;
         text-align: left;
@@ -27,24 +30,26 @@ a:where(:not(.wp-element-button)) {
           height: 18px;
         }
       }
+      .vetrina-menu-name {
+        height: 40px;
+      }
     }
     .vetrina-block-menu-wrapper {
       border-bottom: 1px solid #EDF6FF;
       margin-bottom: 1.2rem;
       .current-menu-item {
         .vetrina-menu-button {
+          .vetrina-menu-icon {
+            filter: invert();
+          }
           background-color: #fff;
+          color: var(--wp--preset--color--contrast-2);
           --md-sys-color-primary: var(--wp--preset--color--contrast-2);
         }
       }
     }
     .vetrina-block-menu-wrapper:last-child {
       border:none;
-    }
-    .vetrina-menu-button {
-      justify-content: flex-start;
-      display: grid;
-      outline-style: none;
     }
   }
   .vetrina-menu-name {
@@ -78,4 +83,40 @@ html {
 
 .w-100 {
   width: 100%;
+}
+
+.vetrina-user-block-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0px;
+  gap: 20px;
+  color: #EDF6FF;
+  border-bottom: 1px solid;
+  margin: 0px 20px 20px 30px;
+  img {
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+  }
+}
+
+
+.vetrina-button {
+  display: flex;
+  padding: 0.8rem 1.5rem 0.8rem 1rem;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 6.25rem;
+  box-sizing: border-box;
+  background: none;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: #ffffff1e;
+  }
+}
+.vetrina-left-menu-log {
+  margin: 10px 30px 0px 30px;
 }
