@@ -74,6 +74,11 @@ a:where(:not(.wp-element-button)) {
 }
 body {
   height: 100vh;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem;
+  letter-spacing: 0.00625rem;
 }
 html {
   margin-top: 0px !important;
@@ -120,4 +125,7 @@ html {
 }
 .vetrina-left-menu-log {
   margin: 10px 30px 0px 30px;
+}
+.methodix-main-content-block {
+  overflow-y: scroll;
 }
