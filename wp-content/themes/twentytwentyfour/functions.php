@@ -248,6 +248,13 @@ function my_theme_enqueue_styles() {
 			array(), // Зависимости (если есть)
 			wp_get_theme()->get( 'Version' ) // Версия темы
 	);
+	// Подключаем файл стилей для карточек методов
+	wp_enqueue_style(
+		'method-card-style', // Уникальный идентификатор для нового стиля
+		get_theme_file_uri( 'assets/css/method-card.css' ), // URL к файлу стилей
+		array(), // Зависимости (если есть)
+		wp_get_theme()->get( 'Version' ) // Версия темы
+);
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 
@@ -256,7 +263,9 @@ function my_custom_styles() {
 	?>
 	<style>
 			:root {
-					--main-border-radius: <?php echo get_option('my_main_border_radius', '0 20px 20px 0'); ?>;
+					--methodix-border-radius: <?php echo get_option('my_methodix_border_radius', '0.75rem'); ?>;
+					--methodix-main-color: <?php echo get_option('my_methodix-main-color', '0, 45, 116'); ?>;
+					--methodix-padding: <?php echo get_option('my_methodix_padding', '0.75rem'); ?>;
 					--secondary-color: <?php echo get_option('my_secondary_color', '#2ecc71'); ?>;
 			}
 	</style>
@@ -271,27 +280,101 @@ function custom_user_page_selection() {
 			$selected_pages = get_user_meta($current_user->ID, 'selected_pages', true);
 
 			$args = array(
-					'post_type' => 'metodix', // Название вашего кастомного типа записи
+					'post_type' => 'methodix', // Название вашего кастомного типа записи
 					'posts_per_page' => -1, // Получить все записи
 			);
 
 			$pages = get_posts($args);
-			
 			$output = '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
 			$output .= '<input type="hidden" name="action" value="save_user_page_selection">';
+
+			$output .= '<div class="methodix-method-cards-wrapper">';
 			
 			foreach ($pages as $page) {
 					$checked = in_array($page->ID, (array)$selected_pages) ? 'checked' : '';
 					$plus_value = get_field('plus', $page->ID);
-					$output .= '<input type="checkbox" name="selected_pages[]" value="' . $page->ID . '" ' . $checked . '> ' . esc_html($page->post_title) . '<br>';
+					$plus_field = get_field_object('plus', $page->ID);
+					$minus_value = get_field('minus', $page->ID);
+					$minus_field = get_field_object('minus', $page->ID);
+					$expenses_value = get_field('expenses', $page->ID);
+					$expenses_field = get_field_object('expenses', $page->ID);
+					$description_value = get_field('description', $page->ID);
+					$icon_method_value = get_field('method-icon', $page->ID);
+					$type_model_value = get_field('type_model', $page->ID);
+
+					$output .= '<div class="methodix-method-card">';
+					$output .= '<div class="methodix-method-card-header methodix-display-flex-row align-items-center">';
+					$output .= '<input type="checkbox" class="display-none" name="selected_pages[]" value="' . $page->ID . '" ' . $checked . '> <img src="'. $icon_method_value .'">';
+					$output .= '<div class="methodix-method-card-title-type">';
+					$output .= '<div class="methodix-method-card-title">';
+					$output .= esc_html($page->post_title);
+					$output .= '</div>';
+					$output .= '<div class="methodix-method-card-type">';
+					$output .= esc_html($type_model_value);
+					$output .= '</div>';
+					$output .= '</div>';
+					$output .= '</div>';
+
+					$output .='<div class="methodix-method-card-description">'.$description_value.'</div>';
+
+					$output .='<div class="methodix-display-flex-column">';
+
+					$output .='<div class="methodix-display-flex-row">';
+
+					$output .='<div class="methodix-method-card-chips-name">';
+					if ($plus_field) {
+							$plus_label = $plus_field['label']; // Название поля
+							$output .= esc_html($plus_label);
+					}
+					$output .='</div>';
+
 					if (is_array($plus_value) && !empty($plus_value)) {
-						$output .= '<div class="acf-plus-value">';
+						$output .= '<div class="methodix-chips-group methodix-plus-value">';
 						foreach ($plus_value as $value) {
-								$output .= '<div>' . esc_html($value) . '</div>'; // Выводим каждое значение
+								$output .= '<div class="methodix-chip">' . esc_html($value) . '</div>'; // Выводим каждое значение
 						}
 						$output .= '</div>';
-				}
+					}
+					$output .='</div>';
+
+
+					$output .='<div class="methodix-display-flex-row">';
+
+					$output .='<div class="methodix-method-card-chips-name">';
+					if ($minus_field) {
+							$minus_label = $minus_field['label']; // Название поля
+							$output .= esc_html($minus_label);
+					}
+					$output .='</div>';
+					if (is_array($minus_value) && !empty($minus_value)) {
+						$output .= '<div class="methodix-chips-group methodix-minus-value">';
+						foreach ($minus_value as $value) {
+								$output .= '<div class="methodix-chip">' . esc_html($value) . '</div>'; // Выводим каждое значение
+						}
+						$output .= '</div>';
+					}
+					$output .='</div>';
+
+					$output .='<div class="methodix-display-flex-row">';
+					$output .='<div class="methodix-method-card-chips-name">';
+					if ($expenses_field) {
+							$expenses_label = $expenses_field['label']; // Название поля
+							$output .= esc_html($expenses_label);
+					}
+					$output .='</div>';
+					if (!empty($expenses_value)) {
+						$output .= '<div class="methodix-chips-group"><div class="methodix-chip methodix-expenses-value">' . esc_html($expenses_value) . '</div></div>';
+					}
+					$output .='</div>';
+					$output .= '</div>';
+					$output .= '<hr>';
+					$output .= '<div class="methodix-method-card-footer methodix-display-flex-row">';
+					$output .= '<md-suggestion-chip class="methodix-suggestion-chip">Сравнить</md-suggestion-chip>';
+					$output .= '<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Открыть</a></div>';
+					$output .= '</div>';
+					$output .= '</div>';
 			}
+			$output .= '</div>';
 			$output .= '<input type="submit" name="save_selection" value="Сохранить выбор">';
 			$output .= '</form>';
 
@@ -332,14 +415,53 @@ function display_user_selected_pages() {
 			if ($selected_pages) {
 					foreach ($selected_pages as $page_id) {
 							$output .= '<a href="' . get_permalink($page_id) . '">' . esc_html(get_the_title($page_id)) . '</a><br>';
+
+							$plus_value = get_field('plus', $page_id);
+							$minus_value = get_field('minus', $page_id);
+							$expenses_value = get_field('expenses', $page_id);
+							$description_value = get_field('description', $page_id);
+							
+							$output .='<p>'.$description_value.'</p>';
+							
+							if (is_array($plus_value) && !empty($plus_value)) {
+								$output .= '<div class="metodix-plus-value">';
+								foreach ($plus_value as $value) {
+										$output .= '<div>' . esc_html($value) . '</div>'; // Выводим каждое значение
+								}
+								$output .= '</div>';
+							}
+
+							if (is_array($minus_value) && !empty($minus_value)) {
+								$output .= '<div class="metodix-minus-value">';
+								foreach ($minus_value as $value) {
+										$output .= '<div>' . esc_html($value) . '</div>'; // Выводим каждое значение
+								}
+								$output .= '</div>';
+							}
+
+							if (is_array($expenses_value) && !empty($expenses_value)) {
+								$output .= '<div class="metodix-expenses-value">';
+								foreach ($expenses_value as $value) {
+										$output .= '<div>' . esc_html($value) . '</div>'; // Выводим каждое значение
+								}
+								$output .= '</div>';
+							}
+
+
 					}
 			}
+
+
+			
 
 			return $output;
 	}
 	return ''; // Вернуть пустую строку, если пользователь не залогинен
 }
 add_shortcode('user_selected_pages', 'display_user_selected_pages');
+
+
+
 
 //Подключение выбора иконок для меню
 add_action( 'wp_nav_menu_item_custom_fields', 'true_menu_field', 10, 5 );

@@ -1,0 +1,106 @@
+.methodix-method-cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  .methodix-method-card {
+    width: 22.5rem;
+    min-width: 300px;
+    border-radius: var(--methodix-border-radius);
+    padding: var(--methodix-padding) 0.25rem var(--methodix-padding) 1rem;
+    background-color: var(--wp--preset--color--base-2);
+  }
+  hr {
+    border: none;
+    height: 1px;
+    background: rgba(var(--methodix-main-color), 0.30);
+  }
+}
+.methodix-chips-group {
+  display: flex;
+  padding: 0rem 0.125rem;
+  align-items: center;
+  align-content: center;
+  gap: 0.125rem;
+  flex: 1 0 0;
+  flex-wrap: wrap;
+  color: var(--wp--preset--color--base-2);
+}
+.methodix-chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(var(--methodix-main-color), 0.30);
+  border-radius: 30px;
+  width: fit-content;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+}
+.methodix-display-flex-column {
+  display: flex;
+  gap: 0.62rem;
+  flex-direction: column;
+}
+.methodix-display-flex-row {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+}
+.align-items-center {
+  align-items: center;
+}
+.methodix-method-card-chips-name {
+  width: 20%;
+  color: var(--Black, #1F1F1F);
+  /* M3/body/medium */
+  font-size: var(--Body-Medium-Size, 0.875rem);
+  font-style: normal;
+  font-weight: 700;
+  line-height: var(--Body-Medium-Line-Height, 1.25rem); /* 142.857% */
+  letter-spacing: var(--Body-Medium-Tracking, 0.01563rem);
+}
+.methodix-method-card-description {
+  color: var(--Black, #1F1F1F);
+  /* M3/body/medium */
+  font-size: var(--Body-Medium-Size, 0.875rem);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Body-Medium-Line-Height, 1.25rem); /* 142.857% */
+  letter-spacing: var(--Body-Medium-Tracking, 0.01563rem);
+}
+.display-none {
+  display: none;
+}
+.methodix-method-card-header {
+  .methodix-method-card-title {
+    color: var(--Black, #1F1F1F);
+    /* M3/title/medium */
+    font-size: var(--Title-Medium-Size, 1rem);
+    font-style: normal;
+    font-weight: 500;
+    line-height: var(--Title-Medium-Line-Height, 1.5rem); /* 150% */
+    letter-spacing: var(--Title-Medium-Tracking, 0.00938rem);
+  }
+  .methodix-method-card-type {
+    color: var(--Black, #1F1F1F);
+    /* M3/body/medium */
+    font-size: var(--Body-Medium-Size, 0.875rem);
+    font-style: normal;
+    font-weight: 400;
+    line-height: var(--Body-Medium-Line-Height, 1.25rem); /* 142.857% */
+    letter-spacing: var(--Body-Medium-Tracking, 0.01563rem);
+  }
+}
+.wp-block-button__link {
+  padding: 0.625rem 1rem 0.625rem 1rem;
+}
+.methodix-method-card-footer {
+  padding: 1rem;
+  gap: 0.5rem;
+  align-self: stretch;
+}
+.methodix-suggestion-chip {
+  font-family: var(--wp--preset--font-family--heading);
+}
+
+

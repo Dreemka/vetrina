@@ -81,11 +81,13 @@ $table_prefix = 'wp_';
  */
 define( 'WP_DEBUG', true );
 define( 'WP_DEBUG_LOG', '/tmp/wp-errors.log' );
+define( 'AUTOMATIC_UPDATER_DISABLED', true );
 
 
 /* Add any custom values between this line and the "stop editing" line. */
 
 
+// define('ALLOW_UNFILTERED_UPLOADS', true);
 
 /* That's all, stop editing! Happy publishing. */
 

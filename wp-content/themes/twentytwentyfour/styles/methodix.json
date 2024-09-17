@@ -1,14 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 2,
-	"title": "Ember",
+	"title": "Methodix",
 	"settings": {
 		"color": {
 			"duotone": [
 				{
 					"colors": [
 						"#002D74",
-						"#F9F8F5"
+						"#FFFFFF"
 					],
 					"slug": "duotone-2",
 					"name": "Orange and white"
@@ -78,7 +78,7 @@
 			],
 			"palette": [
 				{
-					"color": "#F9F8F5",
+					"color": "#FFFFFF",
 					"name": "Base",
 					"slug": "base"
 				},
@@ -93,7 +93,7 @@
 					"slug": "contrast"
 				},
 				{
-					"color": "#f6decd",
+					"color": "#F5FAFF",
 					"name": "Base / Two",
 					"slug": "base-2"
 				}
@@ -104,7 +104,7 @@
 				{
 					"fontFace": [
 						{
-							"fontFamily": "Instrument Sans",
+							"fontFamily": "Roboto",
 							"fontStyle": "normal",
 							"fontWeight": "400 700",
 							"src": [
@@ -112,7 +112,7 @@
 							]
 						},
 						{
-							"fontFamily": "Instrument Sans",
+							"fontFamily": "Roboto",
 							"fontStyle": "italic",
 							"fontWeight": "400 700",
 							"src": [
@@ -120,8 +120,8 @@
 							]
 						}
 					],
-					"fontFamily": "\"Instrument Sans\", sans-serif",
-					"name": "Instrument Sans",
+					"fontFamily": "\"Roboto\", sans-serif",
+					"name": "Roboto",
 					"slug": "body"
 				},
 				{

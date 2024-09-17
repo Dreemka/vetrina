@@ -11,8 +11,8 @@ a:where(:not(.wp-element-button)) {
 }
 
 .vetrina-left-side-bar {
-  background-color: var(--wp--preset--color--contrast-2);
-  border-radius: var(--main-border-radius);
+  background-color: rgba(var(--methodix-main-color), 1);
+  border-radius: 0 var(--methodix-border-radius) var(--methodix-border-radius) 0;
   width: 100%;
   height: 100%;
   display: grid;
@@ -70,6 +70,7 @@ a:where(:not(.wp-element-button)) {
 }
 .vetrina-main-content-block {
   overflow: scroll;
+  width: 100%;
 }
 body {
   height: 100vh;
