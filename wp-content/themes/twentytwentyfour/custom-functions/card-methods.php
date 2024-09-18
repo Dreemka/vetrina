@@ -39,25 +39,34 @@ function custom_user_page_selection() {
 }
 add_shortcode('user_page_selection', 'custom_user_page_selection');
 
-  $output = '<div class="filters">';
-
-  //Функция выводит фильтра
-  function render_filters() {
+//Функция выводит фильтра
+function render_filters() {
   $minus_values = get_field_object('minus' , 218);
-  if (is_array($minus_values)) {
-      $output .= '<div >' . $minus_values["label"] . '</div>';
-      // Пример фильтра по значению произвольного поля "expert"
-      $output .= '<select id="methodix-filter-minus" name="methodix-filter-minus">';
-      $output .= '<option value="">All</option>';
-      foreach ($minus_values['choices'] as $key => $value) {
-          $output .= '<option value="'.$key.'">'.$value.'</option>';
-      }
-      $output .= '</select>';
-  } else {
-      echo 'Полученные данные не являются массивом.';
+  $plus_values = get_field_object('plus' , 218);
+  $expenses_values = get_field_object('expenses' , 218);
+  $fields = array($minus_values, $plus_values, $expenses_values);
+
+  $output = '<div class="methodix-filters mr-b-20 methodix-display-flex-row">';
+  function render_select_filter($field , &$output) {
+    if (is_array($field)) {
+        $output .= '<div class="methodix-select">';
+        $output .= '<select id="methodix-filter-'.$field["name"].'" name="methodix-filter-'.$field["name"].'">';
+        $output .= '<option disabled selected hidden>'.$field["label"].'</option>';
+        $output .= '<option value="" >Все '.$field["label"].'</option>';
+        foreach ($field['choices'] as $key => $value) {
+            $output .= '<option value="'.$key.'">'.$value.'</option>';
+        }
+        $output .= '</select>';
+        $output .= '</div>';
+    } else {
+        echo 'Полученные данные не являются массивом.';
+    }
   }
-
-
+  foreach ($fields as $field) {
+    if (is_array($field)) {
+      render_select_filter($field , $output);
+    }
+  }
   $output .= '</div>';
   return $output;
 }
@@ -112,19 +121,25 @@ function custom_user_page_search() {
   }
 
   // Применяем фильтры
-  if (!empty($filters['minus'])) {
-      $args['meta_query'] = array(
-          array(
-              'key' => 'minus',
-              'value' => sanitize_text_field($filters['minus']),
-              'compare' => 'LIKE'
-          )
-      );
+  $meta_query = array('relation' => 'AND');
+
+  // Применяем фильтры
+  foreach ($filters as $filter => $value) {
+    if (!empty($filters[$filter])) {
+        $meta_query[] = array(
+            array(
+                'key' => $filter,
+                'value' => sanitize_text_field($filters[$filter]),
+                'compare' => 'LIKE'
+            )
+        );
+    }
   }
 
-  // echo '<pre>';
-  // print_r(get_posts($args));
-  // echo '</pre>';
+  if (!empty($meta_query)) {
+      $args['meta_query'] = $meta_query;
+  }
+
 
   $pages = get_posts($args);
 

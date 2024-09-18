@@ -26,56 +26,53 @@ jQuery(document).ready(function($) {
       });
   }
   function historyPath(searchQuery) {
-      // Обновляем URL без перезагрузки страницы
       var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?search=' + encodeURIComponent(searchQuery);
       window.history.pushState({ path: newUrl }, '', newUrl);
   };
 
-  // Изначально загружаем все страницы или результаты поиска, если есть
-  var initialSearchQuery = $('#methodix-search-input').val();
-  var initialFilters = {
-      minus: $('#methodix-filter-minus').val()
-  };
-  fetchPages(initialSearchQuery, initialFilters);
+  function getfilters() {
+    return {
+        minus: $('#methodix-filter-minus').val(),
+        plus: $('#methodix-filter-plus').val(),
+        expenses: $('#methodix-filter-expenses').val(),
+    };
+  }
+
+  function getSearchQuery() {
+    return $('#methodix-search-input').val();
+  }
+
+  fetchPages(getSearchQuery(), getfilters());
 
   $('#methodix-search-form').on('submit', function(e) {
       e.preventDefault();
-      var searchQuery = $('#methodix-search-input').val();
-      var filters = {
-          minus: $('#methodix-filter-minus').val()
-      };
-      fetchPages(searchQuery, filters);
-
-      // Обновляем URL без перезагрузки страницы
-      historyPath(searchQuery);
+      fetchPages(getSearchQuery(), getfilters());
+      historyPath(getSearchQuery());
   });
 
   $('#methodix-search-input').on('input', function() {
-      var searchQuery = $(this).val();
-      var filters = {
-          minus: $('#methodix-filter-minus').val()
-      };
       clearTimeout(typingTimer);
       typingTimer = setTimeout(function() {
-          fetchPages(searchQuery, filters);
-          historyPath(searchQuery);
+          fetchPages(getSearchQuery(), getfilters());
+          historyPath(getSearchQuery());
       }, doneTypingInterval);
   });
 
     // Обработка изменения фильтров
-  $('#methodix-filter-minus').on('change', function() {
-    var searchQuery = $('#methodix-search-input').val();
-    var filters = {
-        minus: $('#methodix-filter-minus').val()
-    };
-    fetchPages(searchQuery, filters);
-
-    // Обновляем URL без перезагрузки страницы
-    historyPath(searchQuery);
+  $('#methodix-filter-minus , #methodix-filter-plus , #methodix-filter-expenses').on('change', function() {
+    fetchPages(getSearchQuery(), getfilters());
+    historyPath(getSearchQuery());
   });
 
   // Если пользователь начинает печатать, сбрасываем таймер
   $('#methodix-search-input').on('keydown', function() {
       clearTimeout(typingTimer);
+  });
+
+  window.addEventListener("popstate", () => {
+    const url = new URL(window.location.href);
+    const searchParam = url.searchParams.get("search");
+    fetchPages(searchParam, getfilters());
+    $('#methodix-search-input').val(searchParam || '');
   });
 });
