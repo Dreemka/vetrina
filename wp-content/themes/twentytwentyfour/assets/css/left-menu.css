@@ -128,4 +128,5 @@ html {
 }
 .methodix-main-content-block {
   overflow-y: scroll;
+  width: 100%;
 }

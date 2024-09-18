@@ -1,11 +1,11 @@
 .methodix-method-cards-wrapper {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 20px;
   justify-content: flex-start;
   .methodix-method-card {
-    width: 22.5rem;
-    min-width: 300px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
     border-radius: var(--methodix-border-radius);
     padding: var(--methodix-padding) 1rem var(--methodix-padding) 1rem;
     background-color: var(--wp--preset--color--base-2);
@@ -137,4 +137,51 @@
 .methodix-mb-1 {
   margin-bottom: 1rem;
 }
+
+#loader {
+  text-align: center;
+  font-size: 18px;
+  color: var(--wp--preset--color--contrast);
+  margin: 20px 0;
+}
+
+#methodix-search-input {
+  display: flex;
+  width: 40.4375rem;
+  height: 3.5rem;
+  min-width: 22.5rem;
+  max-width: 45rem;
+  padding: 0rem 0.625rem;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 1.75rem;
+  border: none;
+  background: var(--Brand-Brand-Scrim, #F5FAFF);
+
+  color: var(--wp--preset--color--contrast);
+  /* M3/body/large */
+  font-size: var(--Body-Large-Size, 1rem);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Body-Large-Line-Height, 1.5rem);
+  letter-spacing: var(--Body-Large-Tracking, 0.03125rem);
+  padding-left: 60px;
+}
+::placeholder {
+  color: var(--wp--preset--color--contrast);
+  opacity: 0.3; /* Firefox */
+}
+#methodix-search-form {
+  position: relative;
+}
+.methodix-cards-search-icon {
+  position: absolute;
+  top: 17px;
+  left: 20px;
+}
+.mr-b-20 {
+  margin-bottom: 20px;
+}
+
+
 
