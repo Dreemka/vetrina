@@ -32,9 +32,9 @@ function add_icon_to_menu_item( $item_output, $item, $depth, $args ) {
     $icon_url = get_post_meta( $item->ID, '_menu_icon', true );
 		$item_output = $args->before;
 		$item_output .= '<a href="' . $item->url .'">';
-		$item_output .= '<button class="vetrina-button vetrina-menu-button w-100">';
+		$item_output .= '<button class="methodix-button methodix-menu-button w-100">';
 		if ( $icon_url && strpos( $icon_url, 'http' ) === 0 ) {
-			$item_output .= '<img src="' . esc_url( $icon_url ) . '" class="vetrina-menu-icon">';
+			$item_output .= '<img src="' . esc_url( $icon_url ) . '" class="methodix-menu-icon">';
 		};
 		$item_output .= $args->link_before . $item->title . $args->link_after;
 		$item_output .= '</button>';

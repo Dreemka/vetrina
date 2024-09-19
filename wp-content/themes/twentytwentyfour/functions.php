@@ -217,8 +217,8 @@ if (file_exists(get_template_directory() . '/custom-functions/var-style.php')) {
 	require_once get_template_directory() . '/custom-functions/var-style.php';
 }
 
-if (file_exists(get_template_directory() . '/custom-functions/card-methods.php')) {
-	require_once get_template_directory() . '/custom-functions/card-methods.php';
+if (file_exists(get_template_directory() . '/custom-functions/methods-cards/card-methods.php')) {
+	require_once get_template_directory() . '/custom-functions/methods-cards/card-methods.php';
 }
 
 if (file_exists(get_template_directory() . '/custom-functions/menu-icons.php')) {

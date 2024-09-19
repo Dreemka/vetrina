@@ -10,14 +10,14 @@ a:where(:not(.wp-element-button)) {
   text-decoration: none;
 }
 
-.vetrina-left-side-bar {
+.methodix-left-side-bar {
   background-color: rgba(var(--methodix-main-color), 1);
   border-radius: 0 var(--methodix-border-radius) var(--methodix-border-radius) 0;
   width: 100%;
   height: 100%;
   display: grid;
   overflow: scroll;
-  .vetrina-left-menu {
+  .methodix-left-menu {
     padding: 0 20px;
     ul {
       padding: 0px;
@@ -26,20 +26,20 @@ a:where(:not(.wp-element-button)) {
         list-style-type: none;
         text-align: left;
         color:#fff;
-        .vetrina-icon-menu {
+        .methodix-icon-menu {
           height: 18px;
         }
       }
-      .vetrina-menu-name {
+      .methodix-menu-name {
         height: 40px;
       }
     }
-    .vetrina-block-menu-wrapper {
+    .methodix-block-menu-wrapper {
       border-bottom: 1px solid #EDF6FF;
       margin-bottom: 1.2rem;
       .current-menu-item {
-        .vetrina-menu-button {
-          .vetrina-menu-icon {
+        .methodix-menu-button {
+          .methodix-menu-icon {
             filter: invert();
           }
           background-color: #fff;
@@ -48,27 +48,27 @@ a:where(:not(.wp-element-button)) {
         }
       }
     }
-    .vetrina-block-menu-wrapper:last-child {
+    .methodix-block-menu-wrapper:last-child {
       border:none;
     }
   }
-  .vetrina-menu-name {
+  .methodix-menu-name {
     padding: 0px 12px;
   }
 }
-.vetrina-left-side-bar-wrapper {
+.methodix-left-side-bar-wrapper {
   width: 360px;
   min-width: 360px;
   position: relative;
   top: 0px;
   z-index: 1;
 }
-.vetrina-main-site-block {
+.methodix-main-site-block {
   display: flex;
   height: 100vh;
   overflow: hidden;
 }
-.vetrina-main-content-block {
+.methodix-main-content-block {
   overflow: scroll;
   width: 100%;
 }
@@ -91,7 +91,7 @@ html {
   width: 100%;
 }
 
-.vetrina-user-block-menu {
+.methodix-user-block-menu {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -108,7 +108,7 @@ html {
 }
 
 
-.vetrina-button {
+.methodix-button {
   display: flex;
   padding: 0.8rem 1.5rem 0.8rem 1rem;
   align-items: center;
@@ -123,10 +123,14 @@ html {
     background-color: #ffffff1e;
   }
 }
-.vetrina-left-menu-log {
+.methodix-left-menu-log {
   margin: 10px 30px 0px 30px;
 }
 .methodix-main-content-block {
   overflow-y: scroll;
   width: 100%;
+}
+.header-link {
+  position: absolute;
+  right: 22px;
 }

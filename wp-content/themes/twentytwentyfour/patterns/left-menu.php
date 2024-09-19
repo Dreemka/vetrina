@@ -9,7 +9,7 @@
 ?>
 
 <?php
-echo '<div class="vetrina-left-menu">';
+echo '<div class="methodix-left-menu">';
 ?>
 
 <?php
@@ -35,13 +35,13 @@ if (!empty($menus)) {
             // Выводим название меню
             
             if ($menu->name !== 'Настройки') {
-                echo '<li class="vetrina-menu-name">' . esc_html($menu->name) . '</li>';
+                echo '<li class="methodix-menu-name">' . esc_html($menu->name) . '</li>';
             }
             // Выводим само меню
             wp_nav_menu(array(
                 'menu' => $menu->term_id, // ID меню
                 'container' => false, // Отключаем контейнер
-                'items_wrap' => '<ul class="vetrina-block-menu-wrapper">%3$s</ul>', // Оборачиваем элементы в ul
+                'items_wrap' => '<ul class="methodix-block-menu-wrapper">%3$s</ul>', // Оборачиваем элементы в ul
             ));
         }
     }

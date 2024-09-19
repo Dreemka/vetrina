@@ -6,6 +6,7 @@ function wpb_custom_new_menu() {
       'left-menu-tools' => __( 'Tools' ),
       'left-menu-library' => __( 'Library' ),
       'left-menu-settings' => __( 'Settings' ),
+      'left-menu-user' => __( 'User' ),
     )
   );
 }
