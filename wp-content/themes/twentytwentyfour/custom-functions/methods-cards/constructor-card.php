@@ -3,7 +3,9 @@ function custom_user_page_search() {
   check_ajax_referer('custom_user_page_selection_nonce', 'nonce');
 
   $search_query = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
-  $filters = isset($_POST['filters']) ? $_POST['filters'] : array();
+  $filters = isset($_POST['filters']) ? stripslashes($_POST['filters']) : [];
+  $filters_arr = json_decode($filters, true);
+  
   $args = array(
       'post_type' => 'methodix',
       'posts_per_page' => -1,
@@ -14,40 +16,82 @@ function custom_user_page_search() {
   }
 
   // Применяем фильтры
-  $meta_query = array('relation' => 'AND');
+  $meta_query = array('relation' => 'OR');
 
   // Применяем фильтры
-  foreach ($filters as $filter => $value) {
-    if (!empty($filters[$filter])) {
-        $meta_query[] = array(
-            array(
+  foreach ($filters_arr as $filter => $value) {
+    if (!empty($filters_arr[$filter])) {
+
+    // echo gettype($filters_arr[$filter]);
+
+        // Декодируем JSON-строку в массив, если это необходимо
+        // if (is_string($filters[$filter]) && $this->isJson($filters[$filter])) {
+        //     $decoded_value = json_decode($filters[$filter], true);
+            
+        // } else {
+        //     $decoded_value = json_decode($filters[$filter]);
+        // }
+
+
+
+
+        if (is_array($value)) {
+            // Если значение является массивом, создаем подмассив для каждого элемента
+            foreach ($value as $val) {
+              // echo '<pre>';
+              // // print_r($filters_arr[$filter]);
+              // print_r($value);
+              // print_r($val);
+              // print_r($filter);
+              // echo '</pre>';
+                $meta_query[] = array(
+                    'key' => $filter,
+                    'value' => $val,
+                    'compare' => 'LIKE'
+                );
+            }
+        } else {
+            // Если значение не является массивом, добавляем его как обычно
+            $meta_query[] = array(
                 'key' => $filter,
-                'value' => sanitize_text_field($filters[$filter]),
+                'value' => $value,
                 'compare' => 'LIKE'
-            )
-        );
+            );
+        }
     }
-  }
+}
 
   if (!empty($meta_query)) {
       $args['meta_query'] = $meta_query;
   }
 
+  // echo '<pre>';
+  // print_r($args);
+  // echo '</pre>';
+
 
   $pages = get_posts($args);
 
+  //   echo '<pre>';
+  // print_r($args['meta_query']);
+  // echo '</pre>';
+
   if (!empty($pages)) {
       foreach ($pages as $page) {
+          // $custom_fields = get_post_meta($page->ID);
+          // echo '<pre>';
+          // print_r($custom_fields);
+          // echo '</pre>';
           $checked = in_array($page->ID, (array)get_user_meta(get_current_user_id(), 'selected_pages', true)) ? 'checked' : '';
-          $plus_value = get_field('plus', $page->ID);
-          $plus_field = get_field_object('plus', $page->ID);
-          $minus_value = get_field('minus', $page->ID);
-          $minus_field = get_field_object('minus', $page->ID);
-          $expenses_value = get_field('expenses', $page->ID);
-          $expenses_field = get_field_object('expenses', $page->ID);
+          $plus_value = get_field('group-filters_plus', $page->ID);
+          $plus_field = get_field_object('group-filters_plus', $page->ID);
+          $minus_value = get_field('group-filters_minus', $page->ID);
+          $minus_field = get_field_object('group-filters_minus', $page->ID);
+          $expenses_value = get_field('group-filters_expenses', $page->ID);
+          $expenses_field = get_field_object('group-filters_expenses', $page->ID);
           $description_value = get_field('description', $page->ID);
           $icon_method_value = get_field('method-icon', $page->ID);
-          $type_model_value = get_field('type_model', $page->ID);
+          $type_model_value = get_field('group-filters_type_model', $page->ID);
 
           echo '<div class="methodix-method-card">';
           echo '<div class="methodix-method-card-header methodix-display-flex-row align-items-center">';

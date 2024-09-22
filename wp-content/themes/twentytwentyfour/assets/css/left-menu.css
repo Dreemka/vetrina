@@ -68,10 +68,6 @@ a:where(:not(.wp-element-button)) {
   height: 100vh;
   overflow: hidden;
 }
-.methodix-main-content-block {
-  overflow: scroll;
-  width: 100%;
-}
 body {
   height: 100vh;
   font-size: 0.875rem;
@@ -129,6 +125,7 @@ html {
 .methodix-main-content-block {
   overflow-y: scroll;
   width: 100%;
+  position: relative;
 }
 .header-link {
   position: absolute;
