@@ -35,4 +35,9 @@ if (file_exists(get_template_directory() . '/custom-functions/methods-cards/cons
 if (file_exists(get_template_directory() . '/custom-functions/methods-cards/selected-cards.php')) {
 	require_once get_template_directory() . '/custom-functions/methods-cards/selected-cards.php';
 }
+
+//Сравнение карточек
+if (file_exists(get_template_directory() . '/custom-functions/methods-cards/comparison-cards.php')) {
+	require_once get_template_directory() . '/custom-functions/methods-cards/comparison-cards.php';
+}
 ?>

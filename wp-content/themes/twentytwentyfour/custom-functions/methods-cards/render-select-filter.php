@@ -10,8 +10,22 @@
         }
         $output .= '</select>';
         $output .= '</div>';
-    } else {
-        echo 'Полученные данные не являются массивом.';
     }
-  }
+
+
+
+
+
+  // if (is_array($field)) {
+  //     $output .= '<div class="methodix-select">';
+  //     $output .= '<md-outlined-select id="methodix-filter-'.$field["name"].'" name-filter="group-filters_'.$field["name"].'" name="methodix-filter-'.$field["name"].'">';
+  //     $output .= '<md-select-option disabled selected hidden>'.$field["label"].'</md-select-option>';
+  //     $output .= '<md-select-option value="" >Все '.$field["label"].'</md-select-option>';
+  //     foreach ($field['choices'] as $key => $value) {
+  //         $output .= '<md-select-option value="'.$key.'">'.$value.'</md-select-option>';
+  //     }
+  //     $output .= '</md-outlined-select>';
+  //     $output .= '</div>';
+  // }
+}
 ?>

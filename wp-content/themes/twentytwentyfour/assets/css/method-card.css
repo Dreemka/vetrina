@@ -141,6 +141,9 @@ h5{
   gap: 0.5rem;
   font-size: 0.875rem;
   cursor: pointer;
+  svg {
+    fill: var(--wp--preset--color--contrast-2);
+  }
   &:hover {
     border: 1px solid var(--wp--preset--color--contrast);
   }
@@ -351,4 +354,52 @@ h5{
   padding: 2px;
   justify-content: space-between;
 }
+.choise-card-active {
+  background: var(--wp--preset--color--contrast-2);
+  color: #fff;
+  svg {
+    fill: #fff;
+  }
+}
+.methodix-comparison-button-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  color: var(--White, #FFF);
+  text-align: center;
+  /* M3/label/large */
+  font-size: var(--Label-Large-Size, 0.875rem);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Label-Large-Line-Height, 1.25rem); /* 142.857% */
+  letter-spacing: var(--Label-Large-Tracking, 0.00625rem);
+  .methodix-suggestion-chip {
+    background: var(--wp--preset--color--contrast-2);
+    color: #fff;
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: var(--Corner-Large, 1rem);
+    box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.30);
+    svg {
+      fill: #fff;
+    }
+  }
+}
+.methodix-comparison-button-wrapper-no-active {
+  .methodix-suggestion-chip:last-child {
+    pointer-events: none;
+    color: var(--Grey-Dark, #929194);
+    border-color: var(--Grey-light, #DADADB);
+    background: var(--Grey-light, #DADADB);
+
+    svg {
+      fill: var(--Grey-Dark, #929194);
+
+    }
+  }
+}
+
 

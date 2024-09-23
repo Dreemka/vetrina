@@ -165,4 +165,45 @@ function closeRightPanel() {
 
 closeRightPanel();
 
+let choiseCards = [];
+const comparisonButtonWrapper = document.querySelector('.methodix-comparison-button-wrapper');
+function handleCardClick(e , id) {
+  const element = e.currentTarget;
+  
+
+  const exists = choiseCards.some(card => card.id === id);
+  
+  choiseCards = choiseCards.filter(card => card.id !== id);
+  element.classList.remove('choise-card-active');
+  if (choiseCards.length < 1) {
+    comparisonButtonWrapper.style = 'display: none';
+  }
+  if (choiseCards.length === 1) {
+    comparisonButtonWrapper.classList.add('methodix-comparison-button-wrapper-no-active');
+  }
+  if (exists) return;
+
+  choiseCards.push({
+    id: id,
+    e: element,
+  });
+
+  if (choiseCards.length === 1) {
+    comparisonButtonWrapper.style = 'display: flex';
+    comparisonButtonWrapper.classList.add('methodix-comparison-button-wrapper-no-active');
+  } else {
+    comparisonButtonWrapper.classList.remove('methodix-comparison-button-wrapper-no-active');
+  }
+
+  element.classList.add('choise-card-active');
+  console.log(222);
+  console.log(choiseCards);
+  // console.log(e);
+  // console.log(id);
+}
+function handleCardCloseClick() {
+  choiseCards = [];
+  comparisonButtonWrapper.style = 'display: none';
+  document.querySelectorAll('.methodix-comparison-chip').forEach(chip => chip.classList.remove('choise-card-active'));
+};
 
