@@ -33,11 +33,18 @@ function my_theme_enqueue_styles() {
 	);
 	// Подключаем файл стилей для карточек методов
 	wp_enqueue_style(
-		'method-card-style', // Уникальный идентификатор для нового стиля
-		get_theme_file_uri( 'assets/css/method-card.css' ), // URL к файлу стилей
-		array(), // Зависимости (если есть)
-		wp_get_theme()->get( 'Version' ) // Версия темы
-);
+			'method-card-style', // Уникальный идентификатор для нового стиля
+			get_theme_file_uri( 'assets/css/method-card.css' ), // URL к файлу стилей
+			array(), // Зависимости (если есть)
+			wp_get_theme()->get( 'Version' ) // Версия темы
+	);
+
+	wp_enqueue_style(
+			'method-page-style', // Уникальный идентификатор для нового стиля
+			get_theme_file_uri( 'assets/css/method-page.css' ), // URL к файлу стилей
+			array(), // Зависимости (если есть)
+			wp_get_theme()->get( 'Version' ) // Версия темы
+	);
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 ?>

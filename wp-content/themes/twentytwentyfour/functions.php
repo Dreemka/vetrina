@@ -175,6 +175,14 @@ if ( ! function_exists( 'twentytwentyfour_block_stylesheets' ) ) :
 				'path'   => get_parent_theme_file_path( 'assets/css/button-outline.css' ),
 			)
 		);
+
+		wp_enqueue_style(
+				'my-admin-style',
+				get_template_directory_uri() . '/assets/css/admin-style.css',
+				array(),
+				wp_get_theme()->get('Version')
+		);
+
 	}
 endif;
 

@@ -123,16 +123,19 @@ jQuery(document).ready(function($) {
     fetchPages(searchParam, getfilters());
     $('#methodix-search-input').val(searchParam || '');
   });
-});
+
+
+
 
 let openCloseRightPanel = false;
+let methodixLeftSideBarWrapper = document.querySelector('.methodix-left-side-bar-wrapper');
 
 function closeRightPanel() {
   let closeButton = document.querySelector('.methodix-close-button');
   let openButton = document.querySelector('.methodix-open-right-panel-button');
   let rightPanel = document.querySelector('.methodix-right-panel-filters');
   let backgroundRightPanel = document.querySelector('.methodix-background-right-panel');
-  let methodixLeftSideBarWrapper = document.querySelector('.methodix-left-side-bar-wrapper');
+  
 
   if (backgroundRightPanel) {
     backgroundRightPanel.addEventListener('click', () => {
@@ -167,10 +170,9 @@ closeRightPanel();
 
 let choiseCards = [];
 const comparisonButtonWrapper = document.querySelector('.methodix-comparison-button-wrapper');
-function handleCardClick(e , id) {
-  const element = e.currentTarget;
-  
 
+window.handleCardComparisonChoiseClick = function(e , id) {
+  const element = e.currentTarget;
   const exists = choiseCards.some(card => card.id === id);
   
   choiseCards = choiseCards.filter(card => card.id !== id);
@@ -196,14 +198,90 @@ function handleCardClick(e , id) {
   }
 
   element.classList.add('choise-card-active');
-  console.log(222);
-  console.log(choiseCards);
-  // console.log(e);
-  // console.log(id);
 }
-function handleCardCloseClick() {
+
+window.handleCardCloseClick = function() {
   choiseCards = [];
   comparisonButtonWrapper.style = 'display: none';
   document.querySelectorAll('.methodix-comparison-chip').forEach(chip => chip.classList.remove('choise-card-active'));
+  $('#loader-comparison').hide();
+  $('#search-results-comparison .methodix-comparison-cards-wrapper').hide();
+  $('.methodix-main-content-block').css('overflow-y', 'scroll');
+  methodixLeftSideBarWrapper.style = 'none';
 };
 
+function fetchPageCardWindow(id) {
+  // Показываем лоадер
+  $('#loader-comparison').show();
+  $('#search-results-comparison .methodix-comparison-cards-wrapper').show();
+  $.ajax({
+      url: ajax_object.ajax_url,
+      type: 'POST',
+      data: {
+          action: 'page_method_in_window',
+          post_id: id,
+          nonce: ajax_object.nonce,
+      },
+      success: function(response) {
+          $('#search-results-comparison .methodix-comparison-cards-wrapper').html(response);
+      },
+      complete: function() {
+          // Скрываем лоадер и показываем результаты
+          $('#loader-comparison').hide();
+          $('#search-results-comparison .methodix-comparison-cards-wrapper').show();
+      }
+  });
+}
+
+
+function fetchComparisonWindow(choiseCards) {
+
+  // Показываем лоадер
+  $('#loader-comparison').show();
+  $('#search-results-comparison .methodix-comparison-cards-wrapper').show();
+  $.ajax({
+      url: ajax_object.ajax_url,
+      type: 'POST',
+      data: {
+          action: 'comparison_methods_window',
+          choiseCards: JSON.stringify(choiseCards),
+          nonce: ajax_object.nonce
+      },
+      success: function(response) {
+          $('#search-results-comparison .methodix-comparison-cards-wrapper').html(response);
+      },
+      complete: function() {
+          // Скрываем лоадер и показываем результаты
+          $('#loader-comparison').hide();
+          $('#search-results-comparison .methodix-comparison-cards-wrapper').show();
+      }
+  });
+}
+
+
+window.handleCardOpenClick = function(event , id) {
+  fetchPageCardWindow(id);
+  $('.methodix-main-content-block').css('overflow', 'hidden');
+  methodixLeftSideBarWrapper.style = 'background: rgba(0, 0, 0, 0.16);';
+}
+
+window.handleCardComparisonClick = function() {
+  fetchComparisonWindow(choiseCards);
+  $('.methodix-main-content-block').css('overflow', 'hidden');
+  methodixLeftSideBarWrapper.style = 'background: rgba(0, 0, 0, 0.16);';
+}
+
+function updateTopPosition() {
+  var scrollTop = $('main').scrollTop();
+  $('.methodix-comparison-cards-wrapper').css('top', scrollTop + 'px');
+}
+
+// Обновляем позицию top при загрузке страницы
+updateTopPosition();
+
+// Обновляем позицию top при прокрутке окна
+$('main').scroll(function() {
+  updateTopPosition();
+});
+
+});

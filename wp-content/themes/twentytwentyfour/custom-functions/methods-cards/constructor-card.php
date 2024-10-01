@@ -21,29 +21,9 @@ function custom_user_page_search() {
   // Применяем фильтры
   foreach ($filters_arr as $filter => $value) {
     if (!empty($filters_arr[$filter])) {
-
-    // echo gettype($filters_arr[$filter]);
-
-        // Декодируем JSON-строку в массив, если это необходимо
-        // if (is_string($filters[$filter]) && $this->isJson($filters[$filter])) {
-        //     $decoded_value = json_decode($filters[$filter], true);
-            
-        // } else {
-        //     $decoded_value = json_decode($filters[$filter]);
-        // }
-
-
-
-
         if (is_array($value)) {
             // Если значение является массивом, создаем подмассив для каждого элемента
             foreach ($value as $val) {
-              // echo '<pre>';
-              // // print_r($filters_arr[$filter]);
-              // print_r($value);
-              // print_r($val);
-              // print_r($filter);
-              // echo '</pre>';
                 $meta_query[] = array(
                     'key' => $filter,
                     'value' => $val,
@@ -64,24 +44,9 @@ function custom_user_page_search() {
   if (!empty($meta_query)) {
       $args['meta_query'] = $meta_query;
   }
-
-  // echo '<pre>';
-  // print_r($args);
-  // echo '</pre>';
-
-
   $pages = get_posts($args);
-
-  //   echo '<pre>';
-  // print_r($args['meta_query']);
-  // echo '</pre>';
-
   if (!empty($pages)) {
       foreach ($pages as $page) {
-          // $custom_fields = get_post_meta($page->ID);
-          // echo '<pre>';
-          // print_r($custom_fields);
-          // echo '</pre>';
           $checked = in_array($page->ID, (array)get_user_meta(get_current_user_id(), 'selected_pages', true)) ? 'checked' : '';
           $plus_value = get_field('group-filters_plus', $page->ID);
           $plus_field = get_field_object('group-filters_plus', $page->ID);
@@ -169,7 +134,7 @@ function custom_user_page_search() {
             <path d="M13.125 0.687988C12.2805 0.701124 11.4544 0.936878 10.7301 1.37144C10.0058 1.80601 9.40905 2.42399 9.00003 3.16299C8.59101 2.42399 7.99423 1.80601 7.26996 1.37144C6.54569 0.936878 5.71957 0.701124 4.87503 0.687988C3.52874 0.746481 2.26031 1.33543 1.34687 2.32616C0.433424 3.3169 -0.0507831 4.62888 2.97532e-05 5.97549C2.97532e-05 11.0567 8.21703 16.9255 8.56653 17.1745L9.00003 17.4812L9.43353 17.1745C9.78303 16.927 18 11.0567 18 5.97549C18.0508 4.62888 17.5666 3.3169 16.6532 2.32616C15.7398 1.33543 14.4713 0.746481 13.125 0.687988ZM9.00003 15.6347C6.56028 13.8122 1.50003 9.33474 1.50003 5.97549C1.44876 5.02653 1.7748 4.09579 2.40705 3.38626C3.0393 2.67674 3.92646 2.246 4.87503 2.18799C5.8236 2.246 6.71076 2.67674 7.34301 3.38626C7.97526 4.09579 8.3013 5.02653 8.25003 5.97549H9.75003C9.69876 5.02653 10.0248 4.09579 10.6571 3.38626C11.2893 2.67674 12.1765 2.246 13.125 2.18799C14.0736 2.246 14.9608 2.67674 15.593 3.38626C16.2253 4.09579 16.5513 5.02653 16.5 5.97549C16.5 9.33624 11.4398 13.8122 9.00003 15.6347Z" />
             </svg>';
           echo '</label>';
-          echo '<div class="methodix-suggestion-chip methodix-comparison-chip" onclick="handleCardClick(event , '.$page->ID.')">
+          echo '<div class="methodix-suggestion-chip methodix-comparison-chip" onclick="handleCardComparisonChoiseClick(event , '.$page->ID.')">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                   <g clip-path="url(#clip0_566_2771)">
                   <path d="M15.75 1.5H2.25C1.0095 1.5 0 2.5095 0 3.75V16.5H18V3.75C18 2.5095 16.9905 1.5 15.75 1.5ZM16.5 3.75V8.25H5.25V3H15.75C16.164 3 16.5 3.336 16.5 3.75ZM1.5 3.75C1.5 3.336 1.836 3 2.25 3H3.75V15H1.5V3.75ZM5.25 15V9.75H16.5V15H5.25Z"/>
@@ -183,7 +148,7 @@ function custom_user_page_search() {
               Сравнить
           </div>';
           echo '<div class="wp-block-button">
-              <a class="wp-block-button__link wp-element-button" href="' . get_page_link( $page->ID ) . '">
+              <a class="wp-block-button__link wp-element-button" onclick="handleCardOpenClick(event , '.$page->ID.')">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                   <g clip-path="url(#clip0_566_2776)">
                   <path d="M18 1.5V7.5H16.5V2.5605L6.90525 12.1553L5.84475 11.0948L15.4395 1.5H10.5V0H16.5C17.3272 0 18 0.67275 18 1.5ZM13.5 16.5H1.5V5.25C1.5 4.83675 1.83675 4.5 2.25 4.5H10.3177L11.8177 3H2.25C1.0095 3 0 4.0095 0 5.25V18H15V6.18225L13.5 7.68225V16.5Z" fill="white"/>

@@ -96,7 +96,7 @@ h5{
   letter-spacing: var(--Body-Medium-Tracking, 0.01563rem);
 }
 .display-none {
-  display: none;
+  display: none!important;
 }
 .methodix-method-card-header {
   position: relative;
@@ -377,6 +377,7 @@ h5{
   font-weight: 500;
   line-height: var(--Label-Large-Line-Height, 1.25rem); /* 142.857% */
   letter-spacing: var(--Label-Large-Tracking, 0.00625rem);
+  z-index: 9;
   .methodix-suggestion-chip {
     background: var(--wp--preset--color--contrast-2);
     color: #fff;
@@ -402,4 +403,91 @@ h5{
   }
 }
 
+
+.methodix-comparison-cards-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.16);
+  z-index: 1;
+  overflow: scroll;
+}
+
+.methodix-comparison-card-block {
+  width: 90%;
+  background: #FFF;
+  border-radius: 30px;
+  padding: 20px;
+  box-sizing: border-box;
+  .methodix-comparison-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    gap: 20px;
+    .methodix-comparison-card-header-back {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    h4 {
+      margin: 0;
+    }
+  }
+  .methodix-comparison-content {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); */
+    /* grid-template-columns: 250px 1fr 1fr; */
+    grid-template-columns: 250px repeat(auto-fill, minmax(30%, 1fr));
+    justify-content: flex-start;
+    gap: 10px;
+    overflow-x: scroll;
+    .methodix-method-card-wrapper {
+      gap: 0px;
+      display: grid;
+      /* grid-template-rows: auto 1fr auto; */
+      grid-template-rows: subgrid;
+      border-radius: var(--methodix-border-radius);
+      
+      background-color: var(--wp--preset--color--base-2);
+    }
+    .methodix-method-card-wrapper:first-child {
+      background: var(--Brand-Brand-Blue-10, rgba(24, 42, 91, 0.10));
+    }
+  }
+
+}
+
+.metgodix-comparison-data-wrapper {
+  display: flex;
+  padding: 10px 1rem;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+  .metgodix-comparison-label {
+
+  }
+  .metgodix-comparison-value {
+    .header {
+      margin: 5px 0;
+    }
+  }
+
+}
+.metgodix-comparison-data-wrapper:last-child {
+  border-bottom: none;
+  padding: 10px 1rem;
+}
+.metgodix-comparison-data-wrapper:first-child {
+  padding: 10px 1rem;
+  font-weight: 600;
+}
+.has-global-padding {
+  padding-right: 0px;
+  padding-left: 0px;
+}
 

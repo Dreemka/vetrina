@@ -11,6 +11,7 @@ function custom_user_page_selection_scripts() {
 }
 add_action('wp_enqueue_scripts', 'custom_user_page_selection_scripts');
 
+
 //Шорткод вывода карточек методов и поиска
 if (file_exists(get_template_directory() . '/custom-functions/methods-cards/page-methods.php')) {
 	require_once get_template_directory() . '/custom-functions/methods-cards/page-methods.php';
@@ -29,6 +30,16 @@ if (file_exists(get_template_directory() . '/custom-functions/methods-cards/sele
 //функция которая строит карточку метода
 if (file_exists(get_template_directory() . '/custom-functions/methods-cards/constructor-card.php')) {
 	require_once get_template_directory() . '/custom-functions/methods-cards/constructor-card.php';
+}
+
+//функция которая строит карточку метода
+if (file_exists(get_template_directory() . '/custom-functions/methods-cards/comparison-methods.php')) {
+	require_once get_template_directory() . '/custom-functions/methods-cards/comparison-methods.php';
+}
+
+//функция которая выводит контент метода в окно
+if (file_exists(get_template_directory() . '/custom-functions/methods-cards/page-method-in-window.php')) {
+	require_once get_template_directory() . '/custom-functions/methods-cards/page-method-in-window.php';
 }
 
 //Шорткод который выводит сохраненные карточки методов пользователя

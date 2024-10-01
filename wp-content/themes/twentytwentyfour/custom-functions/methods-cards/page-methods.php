@@ -32,13 +32,21 @@ function custom_user_page_selection() {
       $output .= '</form>';
       // Вставляем фильтры
       $output .= render_comparison();
+
+      $output .= '<div id="search-results-comparison">';
+      
+      $output .= '<div class="methodix-comparison-cards-wrapper" style="display: none;">';
+      $output .= '<div id="loader-comparison" style="display: none;">Загрузка...</div>';
+      // Здесь будет выводиться результат сравнения карточек методов
+      $output .= '</div>';
+      $output .= '</div>';
       $output .= '<div class="methodix-comparison-button-wrapper">';
       $output .= '<div class="methodix-suggestion-chip" onclick="handleCardCloseClick()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path d="M13.707 1.70697L12.293 0.292969L6.99997 5.58597L1.70697 0.292969L0.292969 1.70697L5.58597 6.99997L0.292969 12.293L1.70697 13.707L6.99997 8.41397L12.293 13.707L13.707 12.293L8.41397 6.99997L13.707 1.70697Z" fill="white"/>
                         </svg>
                   </div>';
-      $output .= '<div class="methodix-suggestion-chip" onclick="handleCardClick(event)">
+      $output .= '<div class="methodix-suggestion-chip" onclick="handleCardComparisonClick()">
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                           <g clip-path="url(#clip0_566_2771)">
                           <path d="M15.75 1.5H2.25C1.0095 1.5 0 2.5095 0 3.75V16.5H18V3.75C18 2.5095 16.9905 1.5 15.75 1.5ZM16.5 3.75V8.25H5.25V3H15.75C16.164 3 16.5 3.336 16.5 3.75ZM1.5 3.75C1.5 3.336 1.836 3 2.25 3H3.75V15H1.5V3.75ZM5.25 15V9.75H16.5V15H5.25Z"/>
