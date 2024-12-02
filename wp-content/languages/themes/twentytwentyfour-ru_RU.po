@@ -1046,6 +1046,11 @@ msgctxt "Style variation name"
 msgid "Ember"
 msgstr "Уголь"
 
+#: styles/methodix.json
+msgctxt "Style variation name"
+msgid "Methodix"
+msgstr "Methodix"
+
 #: styles/ember.json styles/fossil.json
 msgctxt "Gradient name"
 msgid "Vertical linen to beige"

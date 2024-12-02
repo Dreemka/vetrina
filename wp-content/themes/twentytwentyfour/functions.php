@@ -175,6 +175,14 @@ if ( ! function_exists( 'twentytwentyfour_block_stylesheets' ) ) :
 				'path'   => get_parent_theme_file_path( 'assets/css/button-outline.css' ),
 			)
 		);
+
+		wp_enqueue_style(
+				'my-admin-style',
+				get_template_directory_uri() . '/assets/css/admin-style.css',
+				array(),
+				wp_get_theme()->get('Version')
+		);
+
 	}
 endif;
 
@@ -203,9 +211,25 @@ if ( ! function_exists( 'twentytwentyfour_pattern_categories' ) ) :
 	}
 endif;
 
-add_action( 'init', 'twentytwentyfour_pattern_categories' );
 
-function wpb_custom_new_menu() {
-  register_nav_menu('my-custom-menu',__( 'Left menu' ));
+if (file_exists(get_template_directory() . '/custom-functions/custom-menu.php')) {
+	require_once get_template_directory() . '/custom-functions/custom-menu.php';
 }
-add_action( 'init', 'wpb_custom_new_menu' );
+
+
+if (file_exists(get_template_directory() . '/custom-functions/included-style.php')) {
+	require_once get_template_directory() . '/custom-functions/included-style.php';
+}
+
+if (file_exists(get_template_directory() . '/custom-functions/var-style.php')) {
+	require_once get_template_directory() . '/custom-functions/var-style.php';
+}
+
+if (file_exists(get_template_directory() . '/custom-functions/methods-cards/card-methods.php')) {
+	require_once get_template_directory() . '/custom-functions/methods-cards/card-methods.php';
+}
+
+if (file_exists(get_template_directory() . '/custom-functions/menu-icons.php')) {
+	require_once get_template_directory() . '/custom-functions/menu-icons.php';
+}
+
