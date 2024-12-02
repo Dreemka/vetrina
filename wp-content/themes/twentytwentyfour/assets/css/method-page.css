@@ -1,0 +1,139 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+.methodix-method-page-wrapper {
+  overflow: scroll;
+  main {
+    padding-top: 3.5rem!important;
+    height: 100%;
+    .methodix-method-page-main {
+      height: 100%;
+      box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      border-radius: 1.75rem;
+      background: #fff;
+    }
+    .methodix-method-page-header {
+      display: flex;
+      padding: 0.5rem 0.4rem 0.5rem 0.25rem;
+      align-items: center;
+      gap: 0.25rem;
+      align-self: stretch;
+      background: var(--Brand-Brand-Scrim, #F5FAFF);
+      border-radius: 1.75rem 1.75rem 0 0;
+      .methodix-method-page-header-wrapper {
+          width: 100%;
+          display: flex;
+          margin: 0;
+          gap: 1.2rem;
+          h1 {
+              margin: 0;
+              padding: 0;
+              color: var(--Black, #1F1F1F);
+              font-size: var(--Title-Large-Size, 1.375rem);
+              font-style: normal;
+              font-weight: 400;
+              line-height: var(--Title-Large-Line-Height, 1.75rem);
+              letter-spacing: var(--Title-Large-Tracking, 0rem);
+          }
+          .methodix-method-page-header-back {
+            display: flex;
+            width: 3rem;
+            justify-content: start;
+            height: 2.5rem;
+            margin-left: 1rem;
+            align-items: center;
+            gap: 0.25rem;
+          }
+          .methodix-method-page-header-title {
+            align-items: center;
+            display: flex;
+          }
+          .methodix-method-page-header-menu {
+            align-items: end;
+            display: flex;
+            width: 3rem;
+            height: 2.5rem;
+            flex-direction: column;
+            display: flex;
+            width: 3rem;
+            height: 2.5rem;
+            flex-direction: column;
+            gap: 0.625rem;
+            cursor: pointer;
+            .methodix-menu-block-icon {
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              width: 2.6rem;
+              height: 3rem;
+              background: var(--Brand-Brand-Blue-10, rgba(24, 42, 91, 0.10));
+              border-radius: 50%;
+            }
+          }
+      }
+    }
+  }
+  .methodix-method-page-group {
+    gap: 1rem;
+    padding: 1rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    >.wp-block-column-is-layout-flow {
+      flex: 1 1 250px;
+    }
+    .methodix-method-page-group-block {
+      padding: 1rem;
+      border-radius: var(--Corner-Medium, 0.75rem);
+      background: var(--Brand-Brand-Scrim, #F5FAFF);
+      color: var(--Black, #1F1F1F);
+      /* M3/body/medium */
+      font-size: var(--Body-Medium-Size, 0.875rem);
+      font-style: normal;
+      font-weight: 400;
+      line-height: var(--Body-Medium-Line-Height, 1.25rem); /* 142.857% */
+      letter-spacing: var(--Body-Medium-Tracking, 0.01563rem);
+    }
+    .methodix-method-page-group-block-tags {
+      .wp-block-buttons {
+        .wp-block-button {
+          .wp-element-button {
+            display: flex;
+            padding: 0.125rem 0.625rem;
+            justify-content: center;
+            align-items: center;
+            gap: 0.625rem;
+            border-radius: 62.4375rem;
+            background: var(--Brand-Brand-Blue-30, rgba(0, 45, 116, 0.30));
+          }
+        }
+      }
+    }
+  }
+}
+.methodix-comparison-cards-wrapper {
+  .methodix-method-page-wrapper {
+    overflow: scroll;
+    top: 0px;
+    position: absolute;
+    width: 100%;
+
+  }
+}
+:root :where(.wp-block-list) {
+  padding-left: var(--wp--preset--spacing--10);
+}
+#loader-comparison {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 999;
+  background: #ffffffdb;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    width: 50px;
+  }
+}

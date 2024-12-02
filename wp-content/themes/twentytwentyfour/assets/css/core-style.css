@@ -1,0 +1,33 @@
+.page-template-login {
+  background: linear-gradient(252deg, #002D84 0%, #00215D 27%, #222D59 54.46%, #1545AC 100%);
+}
+.methodix-main-block-login {
+  height: 100vh;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.methodix-block-login-wrapper {
+  border-radius: var(--Corner-Large, 1rem);
+  background: var(--Schemes-On-Primary, #FFF);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  display: flex;
+  padding: 2.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.methodix-login-img {
+  width: 47%;
+  img {
+    width: 100%;
+  }
+}
+.methodix-block-form-login {
+  width: 49%;
+}

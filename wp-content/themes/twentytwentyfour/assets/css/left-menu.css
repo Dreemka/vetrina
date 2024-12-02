@@ -1,0 +1,133 @@
+:root {
+  --md-sys-color-surface-container-low: #fff;
+  --md-sys-color-primary: #fff;
+  --md-sys-shape-corner-small: 4px;
+  --md-text-button-container-height: 3.25rem;
+  --wp-admin-border-width-focus: 0px;
+}
+
+a:where(:not(.wp-element-button)) {
+  text-decoration: none;
+}
+
+.methodix-left-side-bar {
+  background-color: rgba(var(--methodix-main-color), 1);
+  border-radius: 0 var(--methodix-border-radius) var(--methodix-border-radius) 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  overflow: scroll;
+  .methodix-left-menu {
+    padding: 0 20px;
+    ul {
+      padding: 0px;
+      margin-top: 0px;
+      li {
+        list-style-type: none;
+        text-align: left;
+        color:#fff;
+        .methodix-icon-menu {
+          height: 18px;
+        }
+      }
+      .methodix-menu-name {
+        height: 40px;
+      }
+    }
+    .methodix-block-menu-wrapper {
+      border-bottom: 1px solid #EDF6FF;
+      margin-bottom: 1.2rem;
+      .current-menu-item {
+        .methodix-menu-button {
+          .methodix-menu-icon {
+            filter: invert();
+          }
+          background-color: #fff;
+          color: var(--wp--preset--color--contrast-2);
+          --md-sys-color-primary: var(--wp--preset--color--contrast-2);
+        }
+      }
+    }
+    .methodix-block-menu-wrapper:last-child {
+      border:none;
+    }
+  }
+  .methodix-menu-name {
+    padding: 0px 12px;
+  }
+}
+.methodix-left-side-bar-wrapper {
+  width: 360px;
+  min-width: 360px;
+  position: relative;
+  top: 0px;
+  z-index: 1;
+}
+.methodix-main-site-block {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+body {
+  height: 100vh;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem;
+  letter-spacing: 0.00625rem;
+}
+html {
+  margin-top: 0px !important;
+}
+.wp-site-blocks {
+  height: 100%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.methodix-user-block-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0px;
+  gap: 20px;
+  color: #EDF6FF;
+  border-bottom: 1px solid;
+  margin: 0px 20px 20px 30px;
+  img {
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+  }
+}
+
+
+.methodix-button {
+  display: flex;
+  padding: 0.8rem 1.5rem 0.8rem 1rem;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 6.25rem;
+  box-sizing: border-box;
+  background: none;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: #ffffff1e;
+  }
+}
+.methodix-left-menu-log {
+  margin: 10px 30px 0px 30px;
+}
+.methodix-main-content-block {
+  overflow-y: scroll;
+  width: 100%;
+  position: relative;
+}
+.header-link {
+  position: absolute;
+  right: 22px;
+}
