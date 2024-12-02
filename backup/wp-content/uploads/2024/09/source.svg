@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+  <g id="Icon" clip-path="url(#clip0_484_3406)">
+    <path id="Vector" d="M24 2.64844V10.6484H22V4.06244L9.207 16.8554L7.793 15.4414L20.586 2.64844H14V0.648438H22C23.103 0.648438 24 1.54544 24 2.64844ZM18 22.6484H2V7.64844C2 7.09744 2.449 6.64844 3 6.64844H13.757L15.757 4.64844H3C1.346 4.64844 0 5.99444 0 7.64844V24.6484H20V8.89144L18 10.8914V22.6484Z" fill="white"></path>
+  </g>
+  <defs>
+    <clipPath id="clip0_484_3406">
+      <rect width="24" height="24" fill="white" transform="translate(0 0.648438)"></rect>
+    </clipPath>
+  </defs>
+</svg>

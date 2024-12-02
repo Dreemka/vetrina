@@ -16,7 +16,7 @@ function custom_user_page_search() {
   }
 
   // Применяем фильтры
-  $meta_query = array('relation' => 'OR');
+  $meta_query = array('relation' => 'AND');
 
   // Применяем фильтры
   foreach ($filters_arr as $filter => $value) {
